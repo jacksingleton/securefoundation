@@ -1,4 +1,9 @@
 languageCode = "en-us"
-title = "My New Hugo Site"
-baseURL = "http://example.org/"
+title = "Secure Foundation"
+baseURL = "https://securefoundation.io"
 theme = "hugo-theme-minos"
+
+[taxonomies]
+context = "contexts"
+type = "types"
+threat = "threats"

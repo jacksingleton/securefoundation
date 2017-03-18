@@ -1,0 +1,34 @@
+<footer id="footer">
+  
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; {{ .Now.Format "2006"}} {{ or .Site.Author .Site.Title }}&nbsp;
+        </div>
+    </div>
+    
+    {{ template "_internal/google_analytics_async.html" . }}
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script> -->
+    
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
+
+    <!-- hack alert: has to be included before jquery for hack-to-highlight-lines-of-code.js to work -->
+    <script src="/js/prism.js"></script>
+    <link rel="stylesheet" href="/css/prism.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    
+    <script src="/js/hack-to-highlight-lines-of-code.js"></script>
+
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
