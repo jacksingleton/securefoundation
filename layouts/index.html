@@ -17,6 +17,10 @@
             <li>
               <a href="{{ $site.BaseURL }}contexts/{{ $value.Name | urlize }}">{{ $value.Name }}</a>({{ $value.Count }})
             </li>
+
+            <!-- {{ range $value.Pages }}
+                 {{ partial "article.html" . }}
+                 {{ end }} -->
             {{ end }}
           </ul>
         </div>
