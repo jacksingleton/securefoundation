@@ -1,3 +1,31 @@
+body {
+    font-size: 1em;
+    font-family: Helvetica, Arial, serif;
+}
+
 .article-title .fa-link {
     color: #ccc;
+}
+
+.layout-wrap {
+    margin-top: 25px;
+}
+
+.article {
+    margin-top: 25px;
+}
+
+.layout-wrap-inner {
+    margin-top: 25px;
+}
+
+.logo-text {
+    margin-right: 10px;
+}
+.subtitle-text {
+    color: #909090;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 57px;
+    margin-right: 25px;
 }

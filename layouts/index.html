@@ -3,26 +3,20 @@
   <div id="container">
     {{ partial "header.html" . }}
     
-    
     <section id="main" class="outer">
       <section class="layout-wrap">
 
-        <span class="layout-title">Contexts:</span>
+        <span class="layout-title">View a Secure Foundation for:</span>
 
-        <div class="layout-wrap-inner tag-cloud">
+        <div class="layout-wrap-inner">
+          <p class="contexts">
           {{ $site := .Site }}
           {{ $data := .Data }}
-          <ul>
             {{ range $key, $value := .Site.Taxonomies.contexts.Alphabetical }}
-            <li>
+            {{ if ne $key 0 }}, {{ end }}
               <a href="{{ $site.BaseURL }}contexts/{{ $value.Name | urlize }}">{{ $value.Name }}</a>({{ $value.Count }})
-            </li>
-
-            <!-- {{ range $value.Pages }}
-                 {{ partial "article.html" . }}
-                 {{ end }} -->
-            {{ end }}
-          </ul>
+              {{ end }}
+          </p>
         </div>
 
       </section>
