@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/threats/broken-auth/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/spring/csrf-protection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/code-injection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/contexts/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/threats/csrf/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/spring/custom-auth/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/threats/injection/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/dangerously-set-innerhtml/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/object-injection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/types/practice/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/contexts/react/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/schema-validation/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/contexts/spring/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/spring/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/react/string-template-injection/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/threats/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/types/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jacksingleton.github.io/securefoundation/threats/xss/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

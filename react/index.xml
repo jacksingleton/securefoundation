@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reacts on Secure Foundation</title>
+    <link>https://jacksingleton.github.io/securefoundation/react/index.xml</link>
+    <description>Recent content in Reacts on Secure Foundation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://jacksingleton.github.io/securefoundation/react/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Code Injection</title>
+      <link>https://jacksingleton.github.io/securefoundation/react/code-injection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/react/code-injection/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;&lt;s&gt;Eval&lt;/s&gt; Evil&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:3&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    var userData = eval(this.props.untrustedData);
+    var userName = userData[&#39;userName&#39;];
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;&amp;gt;
+        Welcome, {userName}
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Eval can technically be used to deserialize json… but don’t do it!&lt;/p&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;JSON.parse should be used to deserialize JSON data&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:3&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    var userName = userData[&#39;userName&#39;];
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;&amp;gt;
+        Welcome, {userName}
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Markup Injection</title>
+      <link>https://jacksingleton.github.io/securefoundation/react/dangerously-set-innerhtml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/react/dangerously-set-innerhtml/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;dangerouslySetInnerHTML is called dangerous for a reason!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:5&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;
+        dangerouslySetInnerHTML={{__html: &#39;Welcome, &#39; + this.props.userName}}&amp;gt;
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;What happens in a React component?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:5&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;&amp;gt;
+        Welcome, {this.props.userName}
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The content is encoded automatically!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Object Injection</title>
+      <link>https://jacksingleton.github.io/securefoundation/react/object-injection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/react/object-injection/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;What happens if userName is not a string?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:6&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;&amp;gt;
+        Welcome, {userData[&#39;userName&#39;]}
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It could be almost anything!&lt;/p&gt;
+
+&lt;p&gt;Including an object, that under some conditions could bypass react’s encoding and lead to an XSS vulnerability!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://danlec.com/blog/xss-via-a-spoofed-react-element&#34;&gt;http://danlec.com/blog/xss-via-a-spoofed-react-element&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;React has since been updated with some mitigations for this, but they are not complete.&lt;/p&gt;
+
+&lt;p&gt;These attacks could also be made against other libraries, or even other services called by the application.&lt;/p&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;Validate the type of variables that come from untrusted input&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:4&#34;&gt;class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    if (!validate(userData)) return handleValidationError();
+    return (
+      &amp;lt;div className=&amp;quot;welcomeHeading&amp;quot;&amp;gt;
+        Welcome, {userData[&#39;userName&#39;]}
+      &amp;lt;/div&amp;gt;
+    )
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Validate types that come from untrusted json input or query parameters.&lt;/p&gt;
+
+&lt;p&gt;Where does &lt;code&gt;validate()&lt;/code&gt; come from? For JSON, consider using a json schema library like &lt;a href=&#34;https://github.com/epoberezkin/ajv&#34;&gt;AJV&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Schema Validation</title>
+      <link>https://jacksingleton.github.io/securefoundation/react/schema-validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/react/schema-validation/</guid>
+      <description>
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;Schema validation tools make it easy to validate types as well as business rules.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var ajv = new Ajv;
+var schema = {
+  &amp;quot;properties&amp;quot;: {
+    &amp;quot;foo&amp;quot;: { &amp;quot;type&amp;quot;: &amp;quot;number&amp;quot; },
+    &amp;quot;bar&amp;quot;: { &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; }
+  }
+};
+var validate = ajv.compile(schema);
+
+console.log(validate({ &amp;quot;foo&amp;quot;: 0, &amp;quot;bar&amp;quot;: &amp;quot;1&amp;quot; })); // true
+console.log(validate({ &amp;quot;foo&amp;quot;: { &amp;quot;surprise&amp;quot;: 1 } })); // false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/epoberezkin/ajv&#34;&gt;https://github.com/epoberezkin/ajv&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>String Template Injection</title>
+      <link>https://jacksingleton.github.io/securefoundation/react/string-template-injection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/react/string-template-injection/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;‘${}’ in string templates are not safe like ‘{}’ in JSX!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:5&#34;&gt;app.get(&#39;/&#39;, function(req, res) {
+  var template = `
+    &amp;lt;html&amp;gt;
+      &amp;lt;body&amp;gt;
+        &amp;lt;header&amp;gt;Hi, ${req.query.user}&amp;lt;/header&amp;gt;
+      &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;
+  `;
+  res.send(template);
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;No escaping is done when using string templates&lt;/p&gt;
+
+&lt;p&gt;This is especially relevent when using server side rendering with express&lt;/p&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;JSX will protect us against XSS attacks, even on the server&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-jsx:5&#34;&gt;app.get(&#39;/&#39;, function(req, res) {
+  var template = (
+    &amp;lt;html&amp;gt;
+      &amp;lt;body&amp;gt;
+        &amp;lt;header&amp;gt;Hi, {req.query.user}&amp;lt;/header&amp;gt;
+      &amp;lt;/body&amp;gt;
+    &amp;lt;/html&amp;gt;
+  );
+  res.send(ReactDOMServer.renderToString(template));
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

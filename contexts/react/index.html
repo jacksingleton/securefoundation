@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>React // Secure Foundation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="React" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://jacksingleton.github.io/securefoundation/contexts/react/" />
+
+
+    <link href="https://jacksingleton.github.io/securefoundation/contexts/react/index.xml" rel="alternate" type="application/rss+xml" title="Secure Foundation" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="https://jacksingleton.github.io/securefoundation/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://jacksingleton.github.io/securefoundation/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://jacksingleton.github.io/securefoundation/">
+              Secure Foundation
+            </a>
+            <span class="subtitle-text">
+              // react 
+            </span>
+            <nav id="main-nav">
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    
+    <section id="main" class="outer">
+      <section class="layout-wrap">
+
+        <div class="layout-wrap-inner">
+          <ul>
+            
+                 <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/code-injection/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            Code Injection
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="bad-practice">Bad Practice</h2>
+
+<p><s>Eval</s> Evil</p>
+
+<pre><code class="language-jsx:3">class WelcomeHeading extends React.Component {
+  render() {
+    var userData = eval(this.props.untrustedData);
+    var userName = userData['userName'];
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;&gt;
+        Welcome, {userName}
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+<p>Eval can technically be used to deserialize json… but don’t do it!</p>
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>JSON.parse should be used to deserialize JSON data</p>
+
+<pre><code class="language-jsx:3">class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    var userName = userData['userName'];
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;&gt;
+        Welcome, {userName}
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#bad-practice">Bad Practice</a></li>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/spring/csrf-protection/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            CSRF Protection
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/contexts/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Contexts&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+            
+                 <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/dangerously-set-innerhtml/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            Markup Injection
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="bad-practice">Bad Practice</h2>
+
+<p>dangerouslySetInnerHTML is called dangerous for a reason!</p>
+
+<pre><code class="language-jsx:5">class WelcomeHeading extends React.Component {
+  render() {
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;
+        dangerouslySetInnerHTML={{__html: 'Welcome, ' + this.props.userName}}&gt;
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>What happens in a React component?</p>
+
+<pre><code class="language-jsx:5">class WelcomeHeading extends React.Component {
+  render() {
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;&gt;
+        Welcome, {this.props.userName}
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+<p>The content is encoded automatically!</p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#bad-practice">Bad Practice</a></li>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/threats/injection/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Injection
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/react/object-injection/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Object Injection&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+            
+                 <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/object-injection/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            Object Injection
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="bad-practice">Bad Practice</h2>
+
+<p>What happens if userName is not a string?</p>
+
+<pre><code class="language-jsx:6">class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;&gt;
+        Welcome, {userData['userName']}
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+<p>It could be almost anything!</p>
+
+<p>Including an object, that under some conditions could bypass react’s encoding and lead to an XSS vulnerability!</p>
+
+<p><a href="http://danlec.com/blog/xss-via-a-spoofed-react-element">http://danlec.com/blog/xss-via-a-spoofed-react-element</a></p>
+
+<p>React has since been updated with some mitigations for this, but they are not complete.</p>
+
+<p>These attacks could also be made against other libraries, or even other services called by the application.</p>
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>Validate the type of variables that come from untrusted input</p>
+
+<pre><code class="language-jsx:4">class WelcomeHeading extends React.Component {
+  render() {
+    var userData = JSON.parse(this.props.untrustedData);
+    if (!validate(userData)) return handleValidationError();
+    return (
+      &lt;div className=&quot;welcomeHeading&quot;&gt;
+        Welcome, {userData['userName']}
+      &lt;/div&gt;
+    )
+  }
+});
+</code></pre>
+
+<p>Validate types that come from untrusted json input or query parameters.</p>
+
+<p>Where does <code>validate()</code> come from? For JSON, consider using a json schema library like <a href="https://github.com/epoberezkin/ajv">AJV</a></p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#bad-practice">Bad Practice</a></li>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/react/dangerously-set-innerhtml/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Markup Injection
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/types/practice/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Practice&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+            
+                 <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/schema-validation/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            Schema Validation
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>Schema validation tools make it easy to validate types as well as business rules.</p>
+
+<pre><code class="language-js">var ajv = new Ajv;
+var schema = {
+  &quot;properties&quot;: {
+    &quot;foo&quot;: { &quot;type&quot;: &quot;number&quot; },
+    &quot;bar&quot;: { &quot;type&quot;: &quot;string&quot; }
+  }
+};
+var validate = ajv.compile(schema);
+
+console.log(validate({ &quot;foo&quot;: 0, &quot;bar&quot;: &quot;1&quot; })); // true
+console.log(validate({ &quot;foo&quot;: { &quot;surprise&quot;: 1 } })); // false
+</code></pre>
+
+<p><a href="https://github.com/epoberezkin/ajv">https://github.com/epoberezkin/ajv</a></p>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/react/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Reacts
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Secure Foundation&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+            
+                 <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/string-template-injection/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            String Template Injection
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="bad-practice">Bad Practice</h2>
+
+<p>‘${}’ in string templates are not safe like ‘{}’ in JSX!</p>
+
+<pre><code class="language-jsx:5">app.get('/', function(req, res) {
+  var template = `
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;header&gt;Hi, ${req.query.user}&lt;/header&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  `;
+  res.send(template);
+});
+</code></pre>
+
+<p>No escaping is done when using string templates</p>
+
+<p>This is especially relevent when using server side rendering with express</p>
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>JSX will protect us against XSS attacks, even on the server</p>
+
+<pre><code class="language-jsx:5">app.get('/', function(req, res) {
+  var template = (
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;header&gt;Hi, {req.query.user}&lt;/header&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+  res.send(ReactDOMServer.renderToString(template));
+});
+</code></pre>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#bad-practice">Bad Practice</a></li>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/spring/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Springs
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/threats/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Threats&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+            
+          </ul>
+        </div>
+
+      </section>
+    </section>
+    <footer id="footer">
+  
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Secure Foundation&nbsp;
+        </div>
+    </div>
+    
+    
+
+    
+    
+    
+
+    
+    <script src="https://jacksingleton.github.io/securefoundation/js/prism.js"></script>
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/prism.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    
+    <script src="https://jacksingleton.github.io/securefoundation/js/hack-to-highlight-lines-of-code.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/securefoundation.css"/>
+
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+  </div>
+</body>
+</html>

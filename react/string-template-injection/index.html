@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>String Template Injection // Secure Foundation</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:title" content="String Template Injection" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:url" content="https://jacksingleton.github.io/securefoundation/react/string-template-injection/" />
+
+
+    <link href="" rel="alternate" type="application/rss+xml" title="Secure Foundation" />
+    <link rel="shortcut icon" href="/favicon.png">
+
+    <link href="https://jacksingleton.github.io/securefoundation/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+    <link href="https://jacksingleton.github.io/securefoundation/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/style.css">
+
+    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <meta name="generator" content="Hugo 0.19" />
+</head>
+
+
+<body>
+<div id="container">
+    <header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a id="logo" class="logo-text" href="https://jacksingleton.github.io/securefoundation/">
+              Secure Foundation
+            </a>
+            <span class="subtitle-text">
+              // react 
+            </span>
+            <nav id="main-nav">
+                
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+    <section id="main" class="outer">
+        <article class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        <header class="article-header">
+          <h1 class="article-title" itemprop="name">
+            <a href="/securefoundation/react/string-template-injection/"><i class="fa fa-link fa-1" aria-hidden="true"></i></a>
+            String Template Injection
+          </h1>
+        </header>
+        
+        <div class="article-meta">
+            
+            
+            
+        </div>
+        <div class="article-entry" itemprop="articleBody">
+            
+
+<h2 id="bad-practice">Bad Practice</h2>
+
+<p>‘${}’ in string templates are not safe like ‘{}’ in JSX!</p>
+
+<pre><code class="language-jsx:5">app.get('/', function(req, res) {
+  var template = `
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;header&gt;Hi, ${req.query.user}&lt;/header&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  `;
+  res.send(template);
+});
+</code></pre>
+
+<p>No escaping is done when using string templates</p>
+
+<p>This is especially relevent when using server side rendering with express</p>
+
+<h2 id="good-practice">Good Practice</h2>
+
+<p>JSX will protect us against XSS attacks, even on the server</p>
+
+<pre><code class="language-jsx:5">app.get('/', function(req, res) {
+  var template = (
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;header&gt;Hi, {req.query.user}&lt;/header&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  );
+  res.send(ReactDOMServer.renderToString(template));
+});
+</code></pre>
+
+        </div>
+
+        
+        
+        <div class="article-toc" >
+            <h3>Contents</h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#bad-practice">Bad Practice</a></li>
+<li><a href="#good-practice">Good Practice</a></li>
+</ul></li>
+</ul>
+</nav>
+        </div>
+        
+        
+
+        
+
+
+        
+    </div>
+    <nav id="article-nav">
+    
+    <a href="/securefoundation/spring/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Springs
+        </div>
+    </a>
+    
+    
+    <a href="/securefoundation/threats/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">Threats&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
+</article>
+
+        
+    </section>
+    <footer id="footer">
+  
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 Secure Foundation&nbsp;
+        </div>
+    </div>
+    
+    
+
+    
+    
+    
+
+    
+    <script src="https://jacksingleton.github.io/securefoundation/js/prism.js"></script>
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/prism.css" />
+    
+    <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+    
+    <script src="https://jacksingleton.github.io/securefoundation/js/hack-to-highlight-lines-of-code.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
+    
+    <link rel="stylesheet" href="https://jacksingleton.github.io/securefoundation/css/securefoundation.css"/>
+
+    <script>
+        document.getElementById('main-nav-toggle').addEventListener('click', function () {
+            var header = document.getElementById('header');
+            if (header.classList.contains('mobile-on')) {
+                header.classList.remove('mobile-on');
+            } else {
+                header.classList.add('mobile-on');
+            }
+        });
+    </script>
+</footer>
+
+</div>
+</body>
+</html>

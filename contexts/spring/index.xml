@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Spring on Secure Foundation</title>
+    <link>https://jacksingleton.github.io/securefoundation/contexts/spring/index.xml</link>
+    <description>Recent content in Spring on Secure Foundation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://jacksingleton.github.io/securefoundation/contexts/spring/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CSRF Protection</title>
+      <link>https://jacksingleton.github.io/securefoundation/spring/csrf-protection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/spring/csrf-protection/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;Spring doesn&amp;rsquo;t come with any built in
+&lt;a href=&#34;https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)&#34;&gt;CSRF&lt;/a&gt;
+protection.&lt;/p&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;But if we include &lt;a href=&#34;https://projects.spring.io/spring-security/&#34;&gt;Spring Security&lt;/a&gt;, it will be enabled by default:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;compile &#39;org.springframework.security:spring-security-web:4&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Tokens will be added to any &lt;code&gt;&amp;lt;form:form&amp;gt;&lt;/code&gt; tags:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;form:form action=&amp;quot;/launchTheMissiles&amp;quot; method=&amp;quot;post&amp;quot;&amp;gt;
+  &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Panic!&amp;quot; /&amp;gt;
+&amp;lt;/form:form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;gotcha&#34;&gt;Gotcha&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;form action=&amp;quot;/launchTheMissiles&amp;quot; method=&amp;quot;post&amp;quot;&amp;gt;
+  &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Panic!&amp;quot; /&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But tokens won’t be added to any plain HTML forms!&lt;/p&gt;
+
+&lt;p&gt;If we bypass &lt;code&gt;&amp;lt;form:form&amp;gt;&lt;/code&gt; we need to include the csrf token manually:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;form action=&amp;quot;/launchTheMissiles&amp;quot; method=&amp;quot;post&amp;quot;&amp;gt;
+  &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Panic!&amp;quot; /&amp;gt;
+  &amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;${_csrf.parameterName}” value=&amp;quot;${_csrf.token}&amp;quot;/&amp;gt;
+&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;gotcha-1&#34;&gt;Gotcha&lt;/h2&gt;
+
+&lt;p&gt;If you disable it, make sure you know what you are doing.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-xml&#34;&gt;&amp;lt;http&amp;gt;
+	&amp;lt;csrf disabled=&amp;quot;true&amp;quot;/&amp;gt;
+&amp;lt;/http&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Custom Auth Logic</title>
+      <link>https://jacksingleton.github.io/securefoundation/spring/custom-auth/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://jacksingleton.github.io/securefoundation/spring/custom-auth/</guid>
+      <description>
+
+&lt;h2 id=&#34;bad-practice&#34;&gt;Bad Practice&lt;/h2&gt;
+
+&lt;p&gt;Auth logic is surprisingly easy to mess up&lt;/p&gt;
+
+&lt;p&gt;We should not be writing it ourselves!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java:3&#34;&gt;public class SessionInterceptor extends ... {
+    public boolean preHandle(...) {
+        return someCustomAuthCode(...);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;good-practice&#34;&gt;Good Practice&lt;/h2&gt;
+
+&lt;p&gt;Spring Security is a widely used (and tested) auth framework&lt;/p&gt;
+
+&lt;p&gt;Define your auth logic declaratively&lt;/p&gt;
+
+&lt;p&gt;Require auth by default&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-gradle&#34;&gt;compile &#39;org.springframework.security:spring-security-web:4&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;protected void configure(HttpSecurity http) throws Exception {
+	http.authorizeRequests()
+		.antMatchers(&amp;quot;/resources/**&amp;quot;, &amp;quot;/signup&amp;quot;).permitAll()
+		.antMatchers(&amp;quot;/admin/**&amp;quot;).hasRole(&amp;quot;ADMIN&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
