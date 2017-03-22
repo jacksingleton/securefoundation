@@ -1,6 +1,6 @@
 languageCode = "en-us"
 title = "Secure Foundation"
-baseURL = "https://securefoundation.io"
+baseURL = "https://jacksingleton.github.io/securefoundation/"
 theme = "hugo-theme-minos"
 MetaDataFormat = "yaml"
 
