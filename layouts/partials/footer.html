@@ -14,16 +14,16 @@
     <!-- <script>hljs.initHighlightingOnLoad();</script> -->
 
     <!-- hack alert: has to be included before jquery for hack-to-highlight-lines-of-code.js to work -->
-    <script src="/js/prism.js"></script>
-    <link rel="stylesheet" href="/css/prism.css" />
+    <script src="{{ .Site.BaseURL }}js/prism.js"></script>
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/prism.css" />
     
     <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
     
-    <script src="/js/hack-to-highlight-lines-of-code.js"></script>
+    <script src="{{ .Site.BaseURL }}js/hack-to-highlight-lines-of-code.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha256-NuCn4IvuZXdBaFKJOAcsU2Q3ZpwbdFisd5dux4jkQ5w=" crossorigin="anonymous" />
     
-    <link rel="stylesheet" href="/css/securefoundation.css"/>
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/securefoundation.css"/>
 
     <script>
         document.getElementById('main-nav-toggle').addEventListener('click', function () {
