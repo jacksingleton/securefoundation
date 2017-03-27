@@ -42,7 +42,7 @@ If we bypass `<form:form>` we need to include the csrf token manually:
 ```xml
 <form action="/launchTheMissiles" method="post">
   <input type="submit" value="Panic!" />
-  <input type="hidden" name="${_csrf.parameterName}” value="${_csrf.token}"/>
+  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 ```
 
