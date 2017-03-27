@@ -8,8 +8,10 @@
 
         <div class="layout-wrap-inner">
           <ul>
-            {{ range .Data.Pages }}
-                 {{ partial "article.html" . }}
+            {{ range .Data.Pages.GroupByParam "types" }}
+                {{ range .Pages }}
+                    {{ partial "article.html" . }}
+                {{ end }}
             {{ end }}
           </ul>
         </div>
