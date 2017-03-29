@@ -29,7 +29,29 @@
             {{ end }}
         </div>
         <div class="article-entry" itemprop="articleBody">
-            {{ .Content }}
+          {{ .Content }}
+
+          <h2>Related Content</h2>
+
+          {{ $page_link := .Permalink }}
+          {{ $threat := .Params.threats }}
+          
+          {{ range $page := .Site.Pages }}
+            {{ if and .Params.Contexts .Params.threats }}
+              {{ $has_common_threat := eq $threat .Params.threats }}
+
+              {{ if $.Scratch.Get "context" }}
+                {{ $.Scratch.Set "has_common_context" (in .Params.contexts ($.Scratch.Get "context")) }}
+              {{ else }}
+                {{ $.Scratch.Set "has_common_context" (intersect .Params.contexts ($.Params.contexts)) }}
+              {{ end }}
+              {{ $has_common_context := ($.Scratch.Get "has_common_context") }}
+
+              {{ if and $has_common_threat $has_common_context (ne $page_link $page.Permalink) }}
+                <li><a href="{{ $page.Permalink }}">{{ $page.Title }}</a></li>
+              {{ end }}
+            {{ end }}
+          {{ end }}
         </div>
 
         {{ if not .Params.notoc }}

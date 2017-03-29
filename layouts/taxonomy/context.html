@@ -1,7 +1,10 @@
 {{ partial "head.html" . }}
+
+{{ $context := (lower .Title) }}
+
 <body>
   <div id="container">
-    {{ partial "header.html" (dict "Site" .Site "subtitle" (lower .Title)) }}
+    {{ partial "header.html" (dict "Site" .Site "subtitle" $context) }}
     
     <section id="main" class="outer">
       <section class="layout-wrap">
@@ -10,7 +13,8 @@
           <ul>
             {{ range .Data.Pages.GroupByParam "types" }}
                 {{ range .Pages }}
-                    {{ partial "article.html" . }}
+                  {{ .Scratch.Set "context" $context }}
+                  {{ partial "article.html" . }}
                 {{ end }}
             {{ end }}
           </ul>
