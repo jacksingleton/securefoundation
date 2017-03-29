@@ -1,6 +1,7 @@
 ---
 title: String Template Injection
-contexts: react
+contexts:
+- react
 threats: injection
 types: practice
 ---

@@ -1,6 +1,7 @@
 ---
 title: Code Injection
-contexts: "react"
+contexts:
+- react
 types: "practice"
 threats: "injection"
 ---

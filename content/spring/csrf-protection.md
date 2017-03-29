@@ -1,6 +1,7 @@
 ---
 title: CSRF Protection
-contexts: spring
+contexts:
+- spring
 threats: csrf
 types: practice
 ---

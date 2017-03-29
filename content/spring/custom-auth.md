@@ -1,6 +1,7 @@
 ---
 title: Custom Auth Logic
-contexts: spring
+contexts:
+- spring
 types: practice
 threats: broken-auth
 ---

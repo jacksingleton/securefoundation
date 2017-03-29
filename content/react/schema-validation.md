@@ -1,6 +1,7 @@
 ---
 title: Schema Validation
-contexts: react
+contexts:
+- react
 threats: injection
 types: practice
 ---

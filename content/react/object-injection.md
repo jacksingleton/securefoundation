@@ -1,6 +1,7 @@
 ---
 title: Object Injection
-contexts: react
+contexts:
+- react
 threats: injection
 types: practice
 ---
