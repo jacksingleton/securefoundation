@@ -31,10 +31,10 @@
         <div class="article-entry" itemprop="articleBody">
           {{ .Content }}
 
-          <h2>Related Content</h2>
 
           {{ $page_link := .Permalink }}
           {{ $threat := .Params.threats }}
+          {{ $.Scratch.Set "relatedPages" slice }}
           
           {{ range $page := .Site.Pages }}
             {{ if and .Params.Contexts .Params.threats }}
@@ -48,10 +48,19 @@
               {{ $has_common_context := ($.Scratch.Get "has_common_context") }}
 
               {{ if and $has_common_threat $has_common_context (ne $page_link $page.Permalink) }}
-                <li><a href="{{ $page.Permalink }}">{{ $page.Title }}</a></li>
+                {{ $.Scratch.Add "relatedPages" (slice $page) }}
               {{ end }}
             {{ end }}
           {{ end }}
+
+          {{ if $.Scratch.Get "relatedPages" }}
+            <h2>Related Content</h2>
+            
+            {{ range $.Scratch.Get "relatedPages" }}
+              <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+            {{ end }}
+          {{ end }}
+          
         </div>
 
         {{ if not .Params.notoc }}
