@@ -2,8 +2,8 @@
 title: CSRF Protection
 contexts:
 - spring
-threats: csrf
-types: practice
+threat: csrf
+type: practice
 ---
 
 ## Bad Practice

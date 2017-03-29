@@ -2,8 +2,8 @@
 title: Schema Validation
 contexts:
 - react
-threats: injection
-types: practice
+threat: injection
+type: practice
 ---
 
 ## Good Practice

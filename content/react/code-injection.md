@@ -2,8 +2,8 @@
 title: Code Injection
 contexts:
 - react
-types: "practice"
-threats: "injection"
+type: "practice"
+threat: "injection"
 ---
 
 ## Bad Practice

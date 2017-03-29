@@ -3,8 +3,8 @@ title: Content Security Policy
 contexts:
 - react
 - spring
-threats: xss
-types: task
+threat: xss
+type: task
 ---
 
 ## Description

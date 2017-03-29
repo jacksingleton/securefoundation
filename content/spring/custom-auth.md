@@ -2,8 +2,8 @@
 title: Custom Auth Logic
 contexts:
 - spring
-types: practice
-threats: broken-auth
+type: practice
+threat: broken-auth
 ---
 
 ## Bad Practice

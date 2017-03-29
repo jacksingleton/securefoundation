@@ -1,6 +1,6 @@
 ---
 title: 
 contexts:
-types:
-threats:
+type:
+threat:
 ---

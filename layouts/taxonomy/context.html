@@ -11,7 +11,7 @@
 
         <div class="layout-wrap-inner">
           <ul>
-            {{ range .Data.Pages.GroupByParam "types" }}
+            {{ range .Data.Pages.GroupByParam "type" }}
                 {{ range .Pages }}
                   {{ .Scratch.Set "context" $context }}
                   {{ partial "article.html" . }}

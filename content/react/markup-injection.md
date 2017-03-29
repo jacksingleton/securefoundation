@@ -2,8 +2,8 @@
 title: Markup Injection
 contexts:
 - react
-types: practice
-threats: xss
+type: practice
+threat: xss
 ---
 
 ## Bad Practice

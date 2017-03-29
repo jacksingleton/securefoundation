@@ -1,6 +1,6 @@
 ---
 title: 
 contexts: spring
-types: practice
-threats: 
+type: practice
+threat: 
 ---

@@ -33,12 +33,12 @@
 
 
           {{ $page_link := .Permalink }}
-          {{ $threat := .Params.threats }}
+          {{ $threat := .Params.threat }}
           {{ $.Scratch.Set "relatedPages" slice }}
           
           {{ range $page := .Site.Pages }}
-            {{ if and .Params.Contexts .Params.threats }}
-              {{ $has_common_threat := eq $threat .Params.threats }}
+            {{ if and .Params.Contexts .Params.threat }}
+              {{ $has_common_threat := eq $threat .Params.threat }}
 
               {{ if $.Scratch.Get "context" }}
                 {{ $.Scratch.Set "has_common_context" (in .Params.contexts ($.Scratch.Get "context")) }}

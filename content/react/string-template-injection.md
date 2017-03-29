@@ -2,8 +2,8 @@
 title: String Template Injection
 contexts:
 - react
-threats: injection
-types: practice
+threat: injection
+type: practice
 ---
 
 ## Bad Practice

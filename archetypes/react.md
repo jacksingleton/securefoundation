@@ -1,6 +1,6 @@
 ---
 title: 
 contexts: react
-types:
-threats: practice
+type:
+threat: practice
 ---
