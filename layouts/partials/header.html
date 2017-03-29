@@ -6,7 +6,17 @@
               {{ .Site.Title }}
             </a>
             <span class="subtitle-text">
-              {{ if isset . "subtitle" }}// {{ .subtitle }} {{ end }}
+              {{ if isset . "subtitle" }}
+                // {{ .subtitle }}
+              {{ end }}
+              {{ if isset . "subtitles" }}
+                {{ if .subtitles | len | eq 1 }}
+                  // {{ index .subtitles 0 }}
+                {{ end }}
+                {{ if gt (.subtitles | len) 1 }}
+                  // { {{ delimit .subtitles ", " }} }
+                {{ end }}
+              {{ end }}
             </span>
             <nav id="main-nav">
                 {{ range .Site.Menus.main }}
