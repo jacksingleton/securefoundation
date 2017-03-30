@@ -57,7 +57,10 @@
             <h2>Related Content</h2>
             
             {{ range $.Scratch.Get "relatedPages" }}
-              <li>{{ title .Params.type }}: <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+              <li>
+                {{ title .Params.type }}:
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+              </li>
             {{ end }}
           {{ end }}
           
