@@ -1,0 +1,8 @@
+
+{{ if gt (len .Params) 1 }}
+  {{ $.Scratch.Set "hl_lines" (printf ",hl_lines=%s" (.Get 1)) }}
+{{ else }}
+  {{ $.Scratch.Set "hl_lines" "" }}
+{{ end }}
+
+{{ highlight .Inner (.Get 0) (printf "cssclass=badcode,nobackground=True%s" ($.Scratch.Get "hl_lines")) }}

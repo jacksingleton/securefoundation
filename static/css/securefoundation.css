@@ -29,3 +29,27 @@ body {
     line-height: 57px;
     margin-right: 25px;
 }
+
+div.goodcode {
+    position: relative;
+}
+
+div.goodcode .fa-check {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 2.5em;
+    color: green;
+}
+
+div.badcode {
+    position: relative;
+}
+
+div.badcode .fa-times {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 2.5em;
+    color: #CC0000;
+}

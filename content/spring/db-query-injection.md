@@ -13,9 +13,9 @@ Hibernate somewhat abstracts us from the database layer...
 
 But HQL is still vulnerable to injection attacks
 
-```java
+{{< badcode java >}}
 session.createQuery("from Foo f where f.name = " + name);
-```
+{{< /badcode >}}
 
 ## Good Practice
 
@@ -29,9 +29,9 @@ query.setParameter("name", name)
 
 Or, even better, we can use the Criteria API
 
-```java:4
+{{< goodcode java 4 >}}
 CriteriaQuery<Foo> criteria = builder.createQuery(Foo.class);
 Root<Foo> root = criteria.from(Foo.class);
 criteria.select(root);
 criteria.where(builder.equal(root.get(Foo_.name), "Bar" ));
-```
+{{< /goodcode >}}
