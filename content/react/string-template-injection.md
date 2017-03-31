@@ -10,7 +10,7 @@ type: practice
 
 ‘${}’ in string templates are not safe like ‘{}’ in JSX!
 
-```jsx:5
+{{< badcode jsx 5 >}}
 app.get('/', function(req, res) {
   var template = `
     <html>
@@ -21,7 +21,7 @@ app.get('/', function(req, res) {
   `;
   res.send(template);
 });
-```
+{{< /badcode >}}
 
 No escaping is done when using string templates 
 
@@ -31,7 +31,7 @@ This is especially relevent when using server side rendering with express
 
 JSX will protect us against XSS attacks, even on the server
 
-```jsx:5
+{{< goodcode jsx 5 >}}
 app.get('/', function(req, res) {
   var template = (
     <html>
@@ -42,5 +42,5 @@ app.get('/', function(req, res) {
   );
   res.send(ReactDOMServer.renderToString(template));
 });
-```
+{{< /goodcode >}}
 

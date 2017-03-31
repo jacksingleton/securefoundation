@@ -12,13 +12,13 @@ Auth logic is surprisingly easy to mess up
 
 We should not be writing it ourselves!
 
-```java:3
+{{< badcode java 3 >}}
 public class SessionInterceptor extends ... {
     public boolean preHandle(...) {
         return someCustomAuthCode(...);
     }
 }
-```
+{{< /badcode >}}
 
 ## Good Practice
 
@@ -28,15 +28,15 @@ Define your auth logic declaratively
 
 Require auth by default
 
-```gradle
+{{< goodcode text >}}
 compile 'org.springframework.security:spring-security-web:4'
-```
+{{< /goodcode >}}
 
-```java
+{{< goodcode java >}}
 protected void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests()
 		.antMatchers("/resources/**", "/signup").permitAll()
 		.antMatchers("/admin/**").hasRole("ADMIN");
 }
-```
+{{< /goodcode >}}
 

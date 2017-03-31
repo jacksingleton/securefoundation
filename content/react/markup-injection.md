@@ -10,7 +10,7 @@ threat: xss
 
 dangerouslySetInnerHTML is called dangerous for a reason!
 
-```jsx:5
+{{< badcode jsx 5 >}}
 class WelcomeHeading extends React.Component {
   render() {
     return (
@@ -19,14 +19,14 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /badcode >}}
 
 ## Good Practice
 
 What happens in a React component?
 
-```jsx:5
+{{< goodcode jsx 5 >}}
 class WelcomeHeading extends React.Component {
   render() {
     return (
@@ -35,7 +35,7 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /goodcode >}}
 
 The content is encoded automatically!

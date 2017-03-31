@@ -10,7 +10,7 @@ type: practice
 
 What happens if userName is not a string?
 
-```jsx:6
+{{< badcode jsx 6 >}}
 class WelcomeHeading extends React.Component {
   render() {
     var userData = JSON.parse(this.props.untrustedData);
@@ -20,8 +20,8 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /badcode >}}
 
 It could be almost anything!
 
@@ -37,7 +37,7 @@ These attacks could also be made against other libraries, or even other services
 
 Validate the type of variables that come from untrusted input
 
-```jsx:4
+{{< goodcode jsx 4 >}}
 class WelcomeHeading extends React.Component {
   render() {
     var userData = JSON.parse(this.props.untrustedData);
@@ -48,8 +48,8 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /goodcode >}}
 
 Validate types that come from untrusted json input or query parameters.
 

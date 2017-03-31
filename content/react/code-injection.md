@@ -30,7 +30,7 @@ Eval can technically be used to deserialize json… but don’t do it!
 
 JSON.parse should be used to deserialize JSON data
 
-```jsx:3
+{{< goodcode jsx 3 >}}
 class WelcomeHeading extends React.Component {
   render() {
     var userData = JSON.parse(this.props.untrustedData);
@@ -41,6 +41,6 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /badcode >}}
 

@@ -16,46 +16,43 @@ protection.
 
 But if we include [Spring Security](https://projects.spring.io/spring-security/), it will be enabled by default:
 
-```gradle
+{{< goodcode text >}}
 compile 'org.springframework.security:spring-security-web:4'
-```
+{{< /goodcode >}}
 
 Tokens will be added to any `<form:form>` tags:
 
-```xml
+{{< goodcode xml >}}
 <form:form action="/launchTheMissiles" method="post">
   <input type="submit" value="Panic!" />
 </form:form>
-```
+{{< /goodcode >}}
 
 ## Gotcha
 
-```xml
+{{< badcode xml >}}
 <form action="/launchTheMissiles" method="post">
   <input type="submit" value="Panic!" />
 </form>
-```
+{{< /badcode >}}
 
 But tokens won’t be added to any plain HTML forms!
 
 If we bypass `<form:form>` we need to include the csrf token manually:
 
-```xml
+{{< goodcode xml >}}
 <form action="/launchTheMissiles" method="post">
   <input type="submit" value="Panic!" />
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
-```
+{{< /goodcode >}}
 
 ## Gotcha
 
 If you disable it, make sure you know what you are doing.
 
-```xml
+{{< badcode xml >}}
 <http>
 	<csrf disabled="true"/>
 </http>
-```
-
-
-
+{{< /badcode >}}

@@ -21,11 +21,11 @@ session.createQuery("from Foo f where f.name = " + name);
 
 Use named parameters to safely combine user input with a query
 
-```java
+{{< goodcode java >}}
 Query query = session.createQuery("from Foo f where f.name = :name");
 
 query.setParameter("name", name)
-```
+{{< /goodcode >}}
 
 Or, even better, we can use the Criteria API
 
