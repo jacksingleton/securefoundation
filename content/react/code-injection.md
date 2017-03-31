@@ -10,7 +10,7 @@ threat: "injection"
 
 <s>Eval</s> Evil
 
-```jsx:3
+{{< badcode jsx 3 >}}
 class WelcomeHeading extends React.Component {
   render() {
     var userData = eval(this.props.untrustedData);
@@ -21,8 +21,8 @@ class WelcomeHeading extends React.Component {
       </div>
     )
   }
-});
-```
+}
+{{< /badcode >}}
 
 Eval can technically be used to deserialize json… but don’t do it!
 
